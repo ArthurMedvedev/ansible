@@ -1,0 +1,26 @@
+---
+- name: install Flaskex to Ubuntu 18.04
+  hosts: webservers
+  remote_user: client
+  become: True
+  tasks:
+  - name: install pip3
+    apt: 
+      name: python3-pip
+      update_cache: yes 
+  - name: install git
+    apt: 
+      name: git
+      update_cache: yes 
+  - name: pull app from github
+    git:
+      repo: https://github.com/anfederico/flaskex.git 
+      dest: /home/client/Рабочий стол/app
+  - name: install requirements 
+    pip:
+      requirements:
+        '/home/client/Рабочий стол/app/requirements.txt'
+  - name: run app.py
+    ansible.builtin.shell:
+      cmd: python3 app.py
+
