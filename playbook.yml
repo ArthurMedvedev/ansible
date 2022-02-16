@@ -20,7 +20,12 @@
     pip:
       requirements:
         '/home/client/Рабочий стол/app/requirements.txt'
-  - name: run app.py
-    ansible.builtin.shell:
-      cmd: python3 app.py
+  - name: downgrade WTForms library
+    pip:
+      name: WTForms
+      state: absent
+  - name: install WTForms to version 2.3.3
+    pip:
+      name: WTForms
+      version: 2.3.3
 
